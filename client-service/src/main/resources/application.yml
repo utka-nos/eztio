@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
+          - metric
+          - info
+spring:
+  datasource:
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/eztio
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
