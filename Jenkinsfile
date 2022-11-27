@@ -60,7 +60,7 @@ pipeline{
                             del temp.cmd
 
                             docker build -t client-app ./client-service
-                            docker build -t product-app .product-service
+                            docker build -t product-app ./product-service
                         '''
                     }
                     catch(err) {
