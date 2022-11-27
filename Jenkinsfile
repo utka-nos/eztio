@@ -86,6 +86,8 @@ pipeline{
 
                             echo "===============================secrets==============================================="
 
+                            kubectl apply -f ./product-service/db-secret.yml
+
                             echo "==============================config maps============================================"
 
                             kubectl apply -f ./prometheus-service/prometheus-cm.yml
@@ -93,10 +95,12 @@ pipeline{
                             echo "==============================deployments============================================"
 
                             kubectl apply -f ./prometheus-service/prometheus-dc.yml
+                            kubectl apply -f ./product-service/product-dc.yml
 
                             echo "==============================services==============================================="
 
                             kubectl apply -f ./prometheus-service/prometheus-svc.yml
+                            kubectl apply -f ./product-service/product-svc.yml
 
                             echo "==============================others================================================="
                         '''

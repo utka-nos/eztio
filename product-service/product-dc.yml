@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # название деплоймента
+  name: product
+  namespace: eztio
+  labels:
+    app: product
+spec:
+  # Количество реплик
+  replicas: 1
+  # Указывает, с какими подами будет работать деплоймент
+  selector:
+    #Поды, у которых есть такой label
+    matchLabels:
+      project: product-pod
+    #Описание подов этого деплоймента
+  template:
+    metadata:
+      name: product
+      #Очевидно, что должны быть такие же labels, какие мы указали в matchLabels в деплойменте
+      labels:
+        project: product-pod
+    spec:
+      #Описываем, какие контейнеры будут в этом поде
+      containers:
+        - name: product-container
+          image: product-app
+          # образ никогда не будет скачиваться из-вне, только из имеющихся уже на устройстве локально
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+            - containerPort: 8081
