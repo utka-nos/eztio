@@ -27,18 +27,21 @@ pipeline{
 
         stage('deleting images') {
             steps{
-               script{
-                   try{
-                       bat '''
-                           minikube docker-env > temp.cmd
-                           call temp.cmd
-                           del temp.cmd
+                script{
+                    try{
+                        bat '''
+                            minikube docker-env > temp.cmd
+                            call temp.cmd
+                            del temp.cmd
 
-                           docker rmi product-app
-                           docker rmi client-app
-                       '''
-                   }
-               }
+                            docker rmi product-app
+                            docker rmi client-app
+                        '''
+                    }
+                    catch(err) {
+                        err.getMessage()
+                    }
+                }
             }
         }
 
@@ -54,6 +57,9 @@ pipeline{
                             docker build -t client-app ./client-service
                             docker build -t product-app .product-service
                         '''
+                    }
+                    catch(err) {
+                        err.getMessage()
                     }
                 }
             }
@@ -90,6 +96,9 @@ pipeline{
 
                             echo "==============================others================================================="
                         '''
+                    }
+                    catch(err) {
+                        echo err.getMessage()
                     }
                 }
             }
