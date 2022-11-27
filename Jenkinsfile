@@ -18,9 +18,14 @@ pipeline{
         stage('deleting kubernetes objects') {
             steps{
                 script{
-                    bat '''
-                        kubectl delete namespace eztio
-                    '''
+                    try{
+                        bat '''
+                            kubectl delete namespace eztio
+                        '''
+                    }
+                    catch(err) {
+                        err.getMessage()
+                    }
                 }
             }
         }
@@ -84,7 +89,6 @@ pipeline{
                             echo "==============================config maps============================================"
 
                             kubectl apply -f ./prometheus-service/prometheus-cm.yml
-
 
                             echo "==============================deployments============================================"
 
