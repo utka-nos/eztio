@@ -64,7 +64,31 @@ pipeline{
                 script{
                     try{
                         bat '''
+                            minikube docker-env > temp.cmd
+                            call temp.cmd
+                            del temp.cmd
 
+                            echo "==============================global objects========================================="
+
+                            kubectl apply -f ./k8s/namespace.yml
+                            kubectl apply -f ./prometheus-service/prometheus-role-sa.yml
+
+                            echo "===============================secrets==============================================="
+
+                            echo "==============================config maps============================================"
+
+                            kubectl apply -f ./prometheus-service/prometheus-cm.yml
+
+
+                            echo "==============================deployments============================================"
+
+                            kubectl apply -f ./prometheus-service/prometheus-dc.yml
+
+                            echo "==============================services==============================================="
+
+                            kubectl apply -f ./prometheus-service/prometheus-svc.yml
+
+                            echo "==============================others================================================="
                         '''
                     }
                 }
@@ -72,4 +96,11 @@ pipeline{
         }
 
     }
+
+    post{
+        always{
+            cleanWs()
+        }
+    }
+
 }

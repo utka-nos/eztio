@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: eztio
+  labels:
+    app: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: prometheus-pod
+  template:
+    metadata:
+      name: prometheus
+      labels:
+        name: prometheus-pod
+    spec:
+      # Нужно для service discovery прометеуса
+      serviceAccount: prometheus
+      containers:
+        - name: prometheus-container
+          image: prom/prometheus:latest
+          volumeMounts:
+            - name: configs
+              mountPath: "/etc/prometheus"
+          ports:
+            - containerPort: 9090
+      volumes:
+        - name: configs
+          configMap:
+            name: prometheus-cm
