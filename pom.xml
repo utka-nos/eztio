@@ -17,7 +17,7 @@
 
     <modules>
         <module>prometheus-service</module>
-        <module>products-service</module>
+        <module>product-service</module>
         <module>client-service</module>
     </modules>
 
