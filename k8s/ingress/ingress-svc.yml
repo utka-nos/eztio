@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: istio-ingressgateway
   namespace: eztio
+  annotations:
+    prometheus.io.path: /stats/prometheus
+    prometheus.io.port: '15020'
+    prometheus.io.scrape: 'true'
 spec:
   type: LoadBalancer
   selector:

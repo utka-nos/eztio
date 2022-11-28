@@ -98,12 +98,14 @@ pipeline{
                             kubectl apply -f ./prometheus-service/prometheus-dc.yml
                             kubectl apply -f ./product-service/product-dc.yml
                             kubectl apply -f ./k8s/ingress/ingress-dc.yml
+                            kubectl apply -f ./k8s/egress/egress-dc.yml
 
                             echo "==============================services==============================================="
 
                             kubectl apply -f ./prometheus-service/prometheus-svc.yml
                             kubectl apply -f ./product-service/product-svc.yml
                             kubectl apply -f ./k8s/ingress/ingress-svc.yml
+                            kubectl apply -f ./k8s/egress/egress-svc.yml
 
                             echo "==============================others================================================="
 

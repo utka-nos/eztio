@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: istio-egressgateway
+  namespace: eztio
+  labels:
+    app: istio-egressgateway
+    istio: egressgateway
+    release: istio
+  annotations:
+    prometheus.io.path: /stats/prometheus
+    prometheus.io.port: '15020'
+    prometheus.io.scrape: 'true'
+spec:
+  ports:
+    - name: http2
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8443
+  selector:
+    app: istio-egressgateway
+    istio: egressgateway
+  type: ClusterIP
