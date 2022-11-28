@@ -5,7 +5,8 @@ metadata:
   namespace: eztio
 spec:
   selector:
-    name: prometheus
+    # это label если что, а не просто name.
+    name: prometheus-pod
   ports:
     - name: prometheus-svc-port
       protocol: TCP

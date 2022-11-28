@@ -83,6 +83,7 @@ pipeline{
 
                             kubectl apply -f ./k8s/namespace.yml
                             kubectl apply -f ./prometheus-service/prometheus-role-sa.yml
+                            kubectl apply -f ./k8s/ingress/ingress-rb.yml
 
                             echo "===============================secrets==============================================="
 
@@ -96,13 +97,21 @@ pipeline{
 
                             kubectl apply -f ./prometheus-service/prometheus-dc.yml
                             kubectl apply -f ./product-service/product-dc.yml
+                            kubectl apply -f ./k8s/ingress/ingress-dc.yml
 
                             echo "==============================services==============================================="
 
                             kubectl apply -f ./prometheus-service/prometheus-svc.yml
                             kubectl apply -f ./product-service/product-svc.yml
+                            kubectl apply -f ./k8s/ingress/ingress-svc.yml
 
                             echo "==============================others================================================="
+
+                            kubectl apply -f ./product-service/product-vs.yml
+                            kubectl apply -f ./product-service/product-gw.yml
+                            kubectl apply -f ./prometheus-service/prometheus-gw.yml
+                            kubectl apply -f ./prometheus-service/prometheus-vs.yml
+
                         '''
                     }
                     catch(err) {
