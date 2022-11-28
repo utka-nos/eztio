@@ -19,11 +19,6 @@ spec:
         istio: egressgateway
         inject.istio.io/templates: gateway
         operator.istio.io/component: EgressGateways
-      annotations:
-        prometheus.io/path: /stats/prometheus
-        prometheus.io/port: '15020'
-        prometheus.io/scrape: 'true'
-        sidecar.istio.io/inject: 'false'
     spec:
       volumes:
         - name: workload-socket
