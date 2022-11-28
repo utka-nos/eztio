@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: product-vs
+  namespace: eztio
+spec:
+  hosts:
+    - "product.service"
+  gateways:
+    - product-gateway
+  http:
+    - match:
+        - gateways:
+            - product-gateway
+      route:
+        - destination:
+            port:
+              number: 80
+            host: product-service

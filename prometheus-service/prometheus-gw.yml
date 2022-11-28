@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: prometheus-gateway
+  namespace: eztio
+spec:
+  selector:
+    istio: ingressgateway #istio default controller
+  servers:
+    - port:
+        # это порт, который прокинут на сервисе istio-ingressgateway (там их несколько штук)
+        number: 80
+        name: http-service
+        protocol: HTTP
+      # хосты, по которым можно попасть в этот gateway снаружи (из браузера)
+      hosts:
+        - "test.info"
